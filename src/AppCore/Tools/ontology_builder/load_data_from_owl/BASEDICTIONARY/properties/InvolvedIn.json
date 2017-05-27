@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Person"
+    ],
+    "range": [
+        "Film"
+    ],
+    "system_name": "InvolvedIn",
+    "words": ["вовлечён"]
+}

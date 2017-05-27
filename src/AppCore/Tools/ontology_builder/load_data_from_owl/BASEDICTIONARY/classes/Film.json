@@ -1,0 +1,9 @@
+{
+    "subclass_of": [
+        "Thing",
+        "What",
+        "Where"
+    ],
+    "system_name": "Film",
+    "words": ["фильм", "кино"]
+}

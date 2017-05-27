@@ -1,3 +1,3 @@
-''' syntax_net_interface
+""" syntax_net_interface
     Interface to work with syntax net
-'''
+"""

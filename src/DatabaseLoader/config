@@ -1,0 +1,5 @@
+[DEFAULT]
+apikey = 3088ce83e84018df7d212d6d823988ba
+owl_rep = /home/ksg/disk_d/labs_2017/diploma/source_code/owl
+#owl_ontology = /home/ksg/disk_d/labs_2017/diploma/source_code/owl/file.owl
+owl_ontology = /home/ksg/disk_d/labs_2017/diploma/source_code/src/DatabaseLoader/VA7JLEG1J9.xml

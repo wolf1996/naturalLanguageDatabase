@@ -1,0 +1,3 @@
+[DEFAULT]
+owl_file = /home/ksg/disk_d/labs_2017/diploma/source_code/src/DatabaseLoader/SJQ1QNCACQ.xml
+work_dir= /home/ksg/disk_d/labs_2017/diploma/source_code/src/AppCore/Tools/ontology_builder/working_dir

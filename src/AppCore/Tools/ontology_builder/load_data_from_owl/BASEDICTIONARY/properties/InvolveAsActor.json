@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Film"
+    ],
+    "range": [
+        "Actor"
+    ],
+    "system_name": "InvolveAsActor",
+    "words": ["снят"]
+}

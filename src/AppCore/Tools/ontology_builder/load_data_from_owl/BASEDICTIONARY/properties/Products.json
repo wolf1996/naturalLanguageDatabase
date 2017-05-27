@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Country"
+    ],
+    "range": [
+        "Film"
+    ],
+    "system_name": "Products",
+    "words": ["выпустил"]
+}

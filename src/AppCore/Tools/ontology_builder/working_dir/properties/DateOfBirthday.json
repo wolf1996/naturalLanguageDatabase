@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Who"
+    ],
+    "range": [
+        "str"
+    ],
+    "system_name": "DateOfBirthday",
+    "words": ["родился"]
+}

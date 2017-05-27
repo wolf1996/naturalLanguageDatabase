@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Thing"
+    ],
+    "range": [
+        "str"
+    ],
+    "system_name": "Name",
+    "words": ["называться", "имя"]
+}

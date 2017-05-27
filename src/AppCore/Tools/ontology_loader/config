@@ -1,0 +1,4 @@
+[DEFAULT]
+neo4j_url = http://localhost:7474
+neo4j_username = python_user
+owl_file = /home/ksg/disk_d/labs_2017/diploma/source_code/src/DatabaseLoader/SJQ1QNCACQ.xml

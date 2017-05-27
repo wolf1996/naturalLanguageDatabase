@@ -1,0 +1,5 @@
+[DEFAULT]
+syntaxnet_path = /home/ksg/disk_d/labs_2017/diploma/syntaxnet/models/syntaxnet
+model_path = /home/ksg/disk_d/labs_2017/diploma/pretrained_model/Russian
+workdir = /home/ksg/disk_d/labs_2017/diploma/source_code/src/AppCore/Tools/ontology_builder/working_dir
+ignore_file_path = /home/ksg/disk_d/labs_2017/diploma/source_code/src/AppCore/nlpdatabase/ignore.json

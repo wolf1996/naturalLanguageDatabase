@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Actor"
+    ],
+    "range": [
+        "Film"
+    ],
+    "system_name": "Acted",
+    "words": ["играл"]
+}

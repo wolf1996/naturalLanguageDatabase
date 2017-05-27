@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Film"
+    ],
+    "range": [
+        "str"
+    ],
+    "system_name": "DateOfRelease",
+    "words": ["выпустить", "снятой", "снять"]
+}

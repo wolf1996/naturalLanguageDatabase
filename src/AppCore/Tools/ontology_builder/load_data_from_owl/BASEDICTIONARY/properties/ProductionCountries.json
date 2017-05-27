@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Film"
+    ],
+    "range": [
+        "Country"
+    ],
+    "system_name": "ProductionCountries",
+    "words": ["выпущен"]
+}

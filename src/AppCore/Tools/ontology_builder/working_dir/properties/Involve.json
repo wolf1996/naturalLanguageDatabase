@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Film"
+    ],
+    "range": [
+        "Person"
+    ],
+    "system_name": "Involve",
+    "words": ["задействовал", "привлёк"]
+}

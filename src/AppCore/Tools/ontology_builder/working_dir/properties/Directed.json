@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Director"
+    ],
+    "range": [
+        "Film"
+    ],
+    "system_name": "Directed",
+    "words": ["срежессировал"]
+}

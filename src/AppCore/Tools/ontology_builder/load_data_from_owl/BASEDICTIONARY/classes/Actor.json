@@ -1,0 +1,7 @@
+{
+    "subclass_of": [
+        "Person"
+    ],
+    "system_name": "Actor",
+    "words": ["актёр"]
+}

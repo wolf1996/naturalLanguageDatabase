@@ -8,10 +8,12 @@ import os
 
 from .exceptions import *
 
+
 class SyntaxNet:
     """
         interface to syntaxnet
     """
+
     def __init__(self, script_directory, model):
         """
         :param script_directory: 

@@ -1,0 +1,3 @@
+[DEFAULT]
+syntaxnet_path = /home/ksg/disk_d/labs_2017/diploma/syntaxnet/models/syntaxnet
+model_path = /home/ksg/disk_d/labs_2017/diploma/pretrained_model/Russian

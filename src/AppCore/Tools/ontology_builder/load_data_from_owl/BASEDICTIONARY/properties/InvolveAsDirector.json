@@ -1,0 +1,10 @@
+{
+    "domain": [
+        "Film"
+    ],
+    "range": [
+        "Director"
+    ],
+    "system_name": "InvolveAsDirector",
+    "words": ["срежессирован"]
+}

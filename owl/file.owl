@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/ksg/,,/source_code/owl"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/ksg/,,/source_code/owl">
+    <Prefix name="" IRI="http://www.semanticweb.org/ksg/,,/source_code/owl"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Concepts"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#InvolveAsDirector"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Acted"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#DateOfRelease"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ProductionCountries"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Person"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Film"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Directed"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Director"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Involve"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#DateOfBirthday"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Who"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Where"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#InvolveAsActor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Actor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Thing"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#InvolvedIn"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#What"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Country"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Name"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Products"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Actor"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Country"/>
+        <Class IRI="#Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Country"/>
+        <Class IRI="#What"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Country"/>
+        <Class IRI="#Where"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Director"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Film"/>
+        <Class IRI="#Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Film"/>
+        <Class IRI="#What"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Film"/>
+        <Class IRI="#Where"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Person"/>
+        <Class IRI="#Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Person"/>
+        <Class IRI="#Who"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#What"/>
+        <Class IRI="#Concepts"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Where"/>
+        <Class IRI="#Concepts"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Who"/>
+        <Class IRI="#Concepts"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#Country"/>
+        <Class IRI="#Film"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Country"/>
+        <Class IRI="#Person"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Film"/>
+        <Class IRI="#Person"/>
+    </DisjointClasses>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Acted"/>
+        <ObjectProperty IRI="#InvolvedIn"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Directed"/>
+        <ObjectProperty IRI="#InvolvedIn"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#InvolveAsActor"/>
+        <ObjectProperty IRI="#Involve"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#InvolveAsDirector"/>
+        <ObjectProperty IRI="#Involve"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Acted"/>
+        <ObjectProperty IRI="#InvolveAsActor"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Directed"/>
+        <ObjectProperty IRI="#InvolveAsDirector"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Involve"/>
+        <ObjectProperty IRI="#InvolvedIn"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#ProductionCountries"/>
+        <ObjectProperty IRI="#Products"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Acted"/>
+        <Class IRI="#Actor"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Directed"/>
+        <Class IRI="#Director"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Involve"/>
+        <Class IRI="#Film"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#InvolveAsActor"/>
+        <Class IRI="#Film"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#InvolveAsDirector"/>
+        <Class IRI="#Film"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#InvolvedIn"/>
+        <Class IRI="#Person"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ProductionCountries"/>
+        <Class IRI="#Film"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Products"/>
+        <Class IRI="#Country"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Acted"/>
+        <Class IRI="#Film"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Directed"/>
+        <Class IRI="#Film"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Involve"/>
+        <Class IRI="#Person"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#InvolveAsActor"/>
+        <Class IRI="#Actor"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#InvolveAsDirector"/>
+        <Class IRI="#Director"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#InvolvedIn"/>
+        <Class IRI="#Film"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ProductionCountries"/>
+        <Class IRI="#Country"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Products"/>
+        <Class IRI="#Film"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="#DateOfBirthday"/>
+        <Class IRI="#Who"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#DateOfRelease"/>
+        <Class IRI="#Film"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Name"/>
+        <Class IRI="#Thing"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#DateOfBirthday"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#DateOfRelease"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Name"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

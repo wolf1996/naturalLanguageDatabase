@@ -1,0 +1,7 @@
+{
+    "subclass_of": [
+        "Film"
+    ],
+    "system_name": "CrimeOntologyClassCXF",
+    "words": ["криминальный"]
+}
