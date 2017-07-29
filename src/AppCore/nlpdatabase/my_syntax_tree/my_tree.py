@@ -30,13 +30,15 @@ class MyTree:
 
     def normalize_tree(self):
         parsed_name = MyTree.mrph.parse(self.name)[0]
-        self.name = parsed_name.normal_form
         if self.ignore_manager.check_ignore_parsed(parsed_name):
             return False
         if not re.match("\[(.*)\]", self.name):
+            self.name = parsed_name.normal_form
             if self.name in self.terasus.terasus:
                 self.system_name = self.terasus.terasus[self.name]
             else:
                 raise InvalidStemError(self.name)
+        else:
+            self.name = self.name.replace('_', ' ')
         self.children = [i for i in self.children if i.normalize_tree()]
         return True

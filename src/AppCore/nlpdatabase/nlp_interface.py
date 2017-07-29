@@ -4,11 +4,13 @@
 
 import re
 
-from syntax_net_interface.syntax_net import SyntaxNet
+from AppCore.nlpdatabase.syntax_net_interface.syntax_net import SyntaxNet
 from conllu.parser import parse_tree
 from AppCore.nlpdatabase.my_syntax_tree.my_tree import MyTree
 from AppCore.nlpdatabase.terasus.my_terasus import MyTerasus
 from AppCore.nlpdatabase.my_syntax_tree.ignore_manager import IgnoreManager
+from AppCore.nlpdatabase.my_syntax_tree.node_container import NodeContainer
+from AppCore.nlpdatabase.my_syntax_tree.relation_container import RelationContainer
 
 
 class NLPInterface:
@@ -68,45 +70,50 @@ class NLPInterface:
             if re.match("\[(.*)\]", i.name):
                 return i.name[1:-1]
 
-    def __process_property(self, node, sysnode, key, n):
-        range = self.terasus.classes[sysnode.system_name].range
-        if 'str' in range:
-            return "WHERE ({}.{} = {})\n".format(key, sysnode.system_name, self.__get_concrete(node))
+    def __process_data_property(self, rel, node):
+        concr = self.__get_concrete(node)
+        rel.range = [self.__process(i) for i in node.children]
+        rel.range.append(concr)
         pass
 
-    def __process_children(self, node, key, n):
-        node_interpretation = self.terasus.terasus[node.name]
-        for i in node_interpretation:
-            if i.type == 'property':
-                return  self.__process_property(node, i, key, n)
+    def __process_relation(self, rel, node):
+        rel.range = [self.__process(i) for i in node.children]
+        pass
 
-    def __create_base(self, key, node):
-        bufkey = self.__get_key()
-        res = "MATCH({}) - [: is_a * 0..]->({})\n".format(key, bufkey)
-        res += "WHERE "
-        res += '{}.system_name in '.format(bufkey)
-        types = [i.system_name for i in self.terasus.terasus[node.name]]
-        res += str(types)
-        res += '\n'
-        return res
+    def __process_children(self, cont, child):
+        rel = RelationContainer()
+        node_interpretation = self.terasus.terasus[child.name]
+        rel.is_a = node_interpretation
+        if not node_interpretation[0].type == 'property':
+            return None
+        prop = self.terasus.classes[node_interpretation[0].system_name]
+        if 'str' in prop.range:
+            self.__process_data_property(rel, child)
+            cont.data_properties.append(rel)
+        else:
+            self.__process_relation(rel, child)
+            cont.data_relations.append(rel)
 
     def __process(self, node, n=0, key=None):
         if key is None:
             key = self.__get_key()
-        cypher = "MATCH ({})\n".format(key)
+        cont = NodeContainer(self.terasus, self.__get_key)
         if re.match("\[(.*)\]", node.name):
-            cypher += "n.Name={}".format(self.name[1:-1])
+            cont.data_properties_resolved['Name'] = node.name[1:-1]
         else:
-            cypher += self.__create_base(key, node)
+            cont.is_a = self.terasus.terasus[node.name]
         for i in node.children:
-            cypher += self.__process_children(i, key,n+1)
+            self.__process_children(cont, i)
             pass
-        if n == 0:
-            cypher += ("return {}".format(key))
-        return cypher
+        return cont
 
     def get_cypher(self):
         res = []
         for i in self.result:
             res.append(self.__process(i))
-        return res
+        cyph = []
+        for i in res:
+            i.id = self.__get_key()
+            cyph.append((i.get_cypher()+'\n return distinct {}'.format(i.id)))
+        self.current_key="a"
+        return cyph

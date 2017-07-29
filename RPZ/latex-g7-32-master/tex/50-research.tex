@@ -1,53 +1,413 @@
 \chapter{Экспериментальный раздел}
 \label{cha:research}
-В ходе тестов было установлено, что система справляется со следующими задачами.
-\section{Запрос объекта по свойству}
-В данном случае система извлекает данные из запроса, и составляет шаблон на Cypher. 
+В ходе тестов были выделен следующие классы запросов.
+\section{Запрос объекта по классу}
+Данный класс запросов моделирует ситуацию, когда известен лишь класс искомого объекта.\\
 Запрос
-\begin{lstlisting}[caption={Запрос}]
-Show me person borned in 1974.
-\end{lstlisting}
-\begin{lstlisting}[caption={Дерево}]
-[Tree('Show', [Tree('person', ['me', Tree('borned', [Tree('1974', ['in'])])])])]
-\end{lstlisting}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Фильм .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+В данной ситуации происходит объекта класса "Фильм".
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['фильм']
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
 \begin{lstlisting}[caption={Результат}]
-MATCH (SomePerson :Person{Birth_Year:"1974"})
-return SomePerson
+MATCH(aaa) - [: is_a * 0..]->(aaaa)
+WHERE aaaa.system_name in ['Film']
+
+ return distinct aaa
 \end{lstlisting}
 
-\section{Запрос объекта по связи}
-В данном случае составляется шаблон исходя из связей которые описаны в запросе.
-\begin{lstlisting}[caption={Запрос}]
-Show me horror directed by [Marc Webb].
-\end{lstlisting}
-\begin{lstlisting}[caption={Дерево}]
-[Tree('Show', [Tree('horror', ['me', Tree('directed', [Tree('MarcWebb', ['by'])])])])]
-\end{lstlisting}
+
+\section{Запрос объекта по имени}
+Данный запрос описывает ситуацию, когда известно имя объекта, но неизвестен его класс.
+Запрос
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+[Piper] .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+В данной ситуации происходит поиск объекта с именем 'Piper'.
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['[Piper]']
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
 \begin{lstlisting}[caption={Результат}]
-MATCH ((VTLB) -[:Produced_by]-> (ODNP))
-MATCH (VTLB :Films:Horror{})
-WHERE ODNP.Person_Name="Marc Webb" OR ODNP.Film_Name="Marc Webb"
-return VTLB,ODNP
+MATCH (aaa) WHERE (aaa.Name='Piper')
+ return distinct aaa
+\end{lstlisting}
+
+
+\section{Запрос объекта по свойству и классу}
+Данный запрос описывает ситуацию, когда известен класс искомого объекта и некоторое свойство.
+Запрос
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Фильм , снятый  [2001-07-20] .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+В данном запросе описывается следующий объект.
+\begin{itemize}
+\item класс - фильм
+\item свойство - снятый, со значением 2001-07-20
+\end{itemize}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['фильм', [['снять', [['[2001-07-20]']]]]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
+\begin{lstlisting}[caption={Результат}]
+MATCH(aaaa) - [: is_a * 0..]->(aaaaa)
+WHERE aaaaa.system_name in ['Film']
+MATCH (aaaa) -[aaaaaa*0..1]-> (aaaaaaa) WHERE (aaaa.DateOfRelease in ['2001-07-20'])
+ return distinct aaaa
+\end{lstlisting}
+
+\section{Запрос объекта по связи и классу}
+Данный запрос описывает ситуацию, когда известен класс объекта и имеется какое-либо описание связи, присущей этому объекту и объекта с которым эта связь установлена.
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Драма где снимался [Elda_Maida] .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+Данный запрос описывает ситуацию. 
+\begin{itemize}
+\item класс искомого объекта - драма
+\item тип связи объекта - снимался 
+\item описание связанного объекта - Elda Maida
+\end{itemize}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['драма', [['сниматься', [['[Elda Maida]']]]]] .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
+\begin{lstlisting}[caption={Результат}]
+MATCH(aaaa) - [: is_a * 0..]->(aaaaa)
+WHERE aaaaa.system_name in ['DramaOntologyClassS7U']
+MATCH (aaaa) -[aaaaaa]-> (aaaaaaa) 
+WHERE type(aaaaaa) in ['Acted', 'InvolveAsActor']
+MATCH (aaaaaaa) WHERE (aaaaaaa.Name='Elda Maida')
+ return distinct aaaa
 \end{lstlisting}
 
 \section{Простая комбинация простых запросов}
-\begin{lstlisting}[caption={Запрос}]
-Show me horror film directed by person borned in 1974.
-\end{lstlisting}
-\begin{lstlisting}[caption={Дерево}]
-[Tree('Show', [Tree('film', ['me', 'horror', Tree('directed', [Tree('person', ['by', Tree('borned', [Tree('1974', ['in'])])])])])])]
-\end{lstlisting}
+В данной ситуации запрос может состоять из нескольких объектов, каждый из которых описывается простым запросом.\\
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Актёр снимавшийся в фильме , снятом в [2001-07-20] .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+В данном запросе описываются два объекта
+\begin{itemize}
+\item Искомый объект описан как класс
+\item Вспомогательный объект описан через свойство даты выпуска, со значением "2001-07-20".
+\end{itemize}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['актёр', [['сниматься', [['фильм', [['снятой', [['[2001-07-20]']]]]]]]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
+\newpage
 \begin{lstlisting}[caption={Результат}]
-MATCH ((SGNL) -[:Produced_by]-> (VMBQ))
-MATCH (SGNL :Films:Horror:Horror{})
-MATCH (VMBQ :Person{Birth_Year:"1974"})
-return SGNL,VMBQ
+MATCH(aaaaa) - [: is_a * 0..]->(aaaaaa)
+WHERE aaaaaa.system_name in ['Actor']
+MATCH (aaaaa) -[aaaaaaa]-> (aaaaaaaa) 
+WHERE type(aaaaaaa) in ['Acted', 'InvolveAsActor']
+MATCH(aaaaaaaa) - [: is_a * 0..]->(aaaaaaaaa)
+WHERE aaaaaaaaa.system_name in ['Film']
+MATCH (aaaaaaaa) -[aaaaaaaaaa*0..1]-> (aaaaaaaaaaa) WHERE (aaaaaaaa.DateOfRelease in ['2001-07-20'])
+
+ return distinct aaaaa
 \end{lstlisting}
+Ещё один пример запроса с множеством объектов.
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Актёр снимавшийся в фильме , срежессированном [Quentin_Tarantino] .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['актёр', [['сниматься', [['фильм', [['срежессировать',
+ [['[Quentin Tarantino]']]]]]]]]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
+\begin{lstlisting}[caption={Результат}]
+MATCH(aaaaa) - [: is_a * 0..]->(aaaaaa)
+WHERE aaaaaa.system_name in ['Actor']
+MATCH (aaaaa) -[aaaaaaa]-> (aaaaaaaa) 
+WHERE type(aaaaaaa) in ['Acted', 'InvolveAsActor']
+MATCH(aaaaaaaa) - [: is_a * 0..]->(aaaaaaaaa)
+WHERE aaaaaaaaa.system_name in ['Film']
+MATCH (aaaaaaaa) -[aaaaaaaaaa]-> (aaaaaaaaaaa) 
+WHERE type(aaaaaaaaaa) in ['Directed', 'InvolveAsDirector']
+MATCH (aaaaaaaaaaa) WHERE (aaaaaaaaaaa.Name='Quentin Tarantino')
+ return distinct aaaaa
+\end{lstlisting}
+
+\subsection{Запрос без указания данных}
+Система позволяет построить простой запрос, без указания конкретных данных, что позволяет расширить возможности системы.\\
+Пример запроса без указания конкретных данных:
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Актёр , снявший фильм .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['актёр', [['снять', [['фильм']]]]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
+\newpage
+\begin{lstlisting}[caption={Результат}]
+MATCH(aaaa) - [: is_a * 0..]->(aaaaa)
+WHERE aaaaa.system_name in ['Actor']
+MATCH (aaaa) -[aaaaaa*0..1]-> (aaaaaaa) WHERE (aaaa.DateOfRelease in [])OR(type(aaaaaa[0]) in ['Directed'])
+ return distinct aaaa
+\end{lstlisting}
+Этот запрос вернёт, всех кто и снимался в фильме и режессировал фильм (Не обязательно один и тот же). 
+Проверочный запрос:\\
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Режиссёр , снимавшийся в фильме .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['режиссёр', [['сниматься', [['фильм']]]]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
+\begin{lstlisting}[caption={Результат}]
+MATCH(aaaa) - [: is_a * 0..]->(aaaaa)
+WHERE aaaaa.system_name in ['Director']
+MATCH (aaaa) -[aaaaaa]-> (aaaaaaa) 
+WHERE type(aaaaaa) in ['Acted', 'InvolveAsActor']
+MATCH(aaaaaaa) - [: is_a * 0..]->(aaaaaaaa)
+WHERE aaaaaaaa.system_name in ['Film']
+
+ return distinct aaaa
+\end{lstlisting}
+
+В этом запросе представлено решение проблемы коллизий.
+В 4й строке результата показано, что отношение может быть представлено несколькими типами. Такое произошло потому что под словом "сниматься" в системе зарегистрированы два отношения.
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+{
+    "domain": [
+        "Actor"
+    ],
+    "range": [
+        "Film"
+    ],
+    "system_name": "Acted",
+    "words": ["играть", "сниматься"]
+}
+\end{verbatim}
+\end{tcolorbox}
+\caption{Описание первой связи}
+\end{figure}
+Приведённые системные имена и слова фигурируют в запросе.
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+{
+    "domain": [
+        "Film"
+    ],
+    "range": [
+        "Actor"
+    ],
+    "system_name": "InvolveAsActor",
+    "words": ["играть","сниматься"]
+}
+\end{verbatim}
+\end{tcolorbox}
+\caption{Описание второй связи}
+\end{figure}
+
+\subsection{Запрос к классу}
+Система позволяет выполнить запрос к классу. Если заданный запрос описывается каким-либо классом, то система вернёт подходящий класс.\\ 
+Пример запроса к типу:\\
+Например :
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Человек , снимавшийся в фильме .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос}
+\end{figure}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['человек', [['сниматься', [['фильм']]]]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево}
+\end{figure}
+\newpage
+\begin{lstlisting}[caption={Результат}]
+MATCH(aaaa) - [: is_a * 0..]->(aaaaa)
+WHERE aaaaa.system_name in ['Person']
+MATCH (aaaa) -[aaaaaa]-> (aaaaaaa) 
+WHERE type(aaaaaa) in ['Acted', 'InvolveAsActor']
+MATCH(aaaaaaa) - [: is_a * 0..]->(aaaaaaaa)
+WHERE aaaaaaaa.system_name in ['Film']
+ return distinct aaaa
+\end{lstlisting}
+Такой запрос вернёт всех актёров в системе и сам класс актёра. 
+\begin{lstlisting}[caption={Результат выполнения запроса}]
+###############################
+system_name Actor
+###############################
+system_name RumiHiiragiOntologyInstanceCT8
+DateOfBirthday ['1987-08-01']
+Name ['Rumi Hiiragi']
+....
+\end{lstlisting}
+
+\section{Ошибки в рамках допущений}
+\subsection{Ошибки синтаксического анализатора}
+Синтаксический анализатор, основанный на стохастическом алгоритме, в некоторых ситуациях даёт некорректный результат, что накладывает на систему требование устойчивости к таким ошибкам.\\
+Ошибки синтаксического анализа ведут к следующим  проблемам:
+\begin{itemize}
+\item нарушение предполагаемой организации семантической сети
+\item некорректное соотношение объектов нарушающее логику приложения
+\item некорректное соотношение объектов соответствующее логике приложения
+\end{itemize}
+Все эти ситуации требуют отдельного рассмотрения, поскольку будут влиять на различные аспекты системы.
+\begin{itemize}
+\item нарушение предполагаемой организации выявляется на этапе перевода сообщения в язык запросов, это самый простой и самый частый тип ошибок синтаксического анализатора.
+\item некорректное соотношение объектов нарушающее логику приложения, с точки зрения системы запрос будет абсолютно корректным, выявить без обращения к пользователю невозможно, проявится в виде пустого ответа на запрос пользователя.
+\item некорректное соотношение объектов соответствующее логике приложения - как и предыдущий класс ошибок, этот класс ошибок без обращения к пользователю невозможно. В данном случае, есть вероятность непустого ответа системы.
+\end{itemize}
+Последние два типа ошибок встречаются крайне редко так как система на данном этапе накладывает достаточно жёсткие требования на дерево и получить конкретных примеров не удалось.\\
+Пример первого типа ошибок:
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Человек , рождённый [1952-05-02] , снявшийся в фильме .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос, вызывающий ошибку}
+\end{figure}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['[1952-05-02]', [['Человек'], ['рождённый', 
+[[',']]], ['снявшийся', [[','], ['фильме', [['в']]]]], ['.']]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево до нормализации}
+\end{figure}
+Как видно из дерева, в данном запросе нарушено требование, согласно которому, каждый дочерний элемент объекта должен быть связью или свойством. Из-за чего система определила запрос как ошибочный.
+\subsection{Ошибки морфологического анализатора}
+Ошибки морфологического анализатора сводятся к неверной нормализации слова, что можно исправить при помощи расширения словаря, словом предложенным морфологическим анализатором, как норма.\\
+В обычной же ситуации система распознает неправильно переведённое слово как ошибочный токен.
+Пример запроса
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+Актёр снимавшийся в фильме , снятом [2001-07-20] .
+\end{verbatim}
+\end{tcolorbox}
+\caption{Запрос, вызывающий ошибку}
+\end{figure}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['Актёр', [['снимавшийся', [['фильме', [['в'],
+ ['снятом', [[','], ['[2001-07-20]']]]]]]], ['.']]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево после нормализации}
+\end{figure}
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+['актёр', [['сниматься', [['фильм', [['снятой',
+ [['[2001-07-20]']]]]]]]]]
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево после нормализации}
+\end{figure}
+\\Как видно из приведённых деревьев запроса, токен "снятом" преобразовалось к токену "снятой", что не соответствует действительности. Соответствующее расширение словоря, произошло настройкой следующего описания. 
+\begin{figure}[!h]
+\begin{tcolorbox}[colback=white, sharpish corners]
+\begin{verbatim}
+{
+    "domain": [
+        "Film"
+    ],
+    "range": [
+        "str"
+    ],
+    "system_name": "DateOfRelease",
+    "words": ["выпустить", "снятой", "снять"]
+}
+\end{verbatim}
+\end{tcolorbox}
+\caption{Дерево после нормализации}
+\end{figure}
+\\Как видно из данной картинки, список связанных слов был расширен словом-исключением, что позволило системе корректно отработать данный запрос.
 \section{Тестирование производительности}
-Проведём проверку эфективности запросов составленных по вышеописанному алгоритму.
+Проведём проверку эфективности запросов, составленных по вышеописанному алгоритму.
 \subsection{Эмуляция клиента}
 Процесс эмуляции клиента происходит по принципу увеличения определяющих признаков. 
-Для этого 
+Для достижения данной цели
 \begin{itemize}
 \item составляется список признаков объекта
 \item выбираются признаки определяющие объект однозначно ($L$) и добавляются в результат
@@ -68,7 +428,7 @@ return SGNL,VMBQ
 \subsection{Составление сложных запросов}
 Основная проблема в составлении запросов с несколькими объектами, заключается в соотнесении объектов и их свойств при расширении запроса.\\
 Для этого признаки-расширения были сформированы как полноценные запросы, а связи внутри этих запросов были пронумерованы, что позволяет быстро определить принадлежность свойства объекту, связи объекту и т.д.
-\section{Экспериментальная часть}
+\section{Результаты экспериментов}
 Результаты эксперимента приведены в таблице.\\
 \begin{tabular}{|c|c|}
 \hline
@@ -80,13 +440,11 @@ return SGNL,VMBQ
 4 & 0.0798\\
 5 & 0.0551\\
 6 & 0.0582\\
-16 & 0.512\\
 \hline
 \end{tabular}
-\\
-Запросы с 16 признаками, это запросы составленные путём сборки всех возможных признаков объекта.
+
 \subsection{Вывод}
-Изменение количества признаков не влияет принципиально на скорость поиска. Однако, если дополнять запрос, определяющий один объект, то время запроса будет расти. 
+Были выделены классы запросов и рассмотрено поведение системы в случае различных критических ситуаций. Также  был поставлен эксперимент входе которого выяснилось, что изменение количества признаков не влияет принципиально на скорость поиска. Однако, если дополнять запрос, определяющий один объект, то время запроса будет расти. 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "rpz"
