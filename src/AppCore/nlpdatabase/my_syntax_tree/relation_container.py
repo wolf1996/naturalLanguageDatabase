@@ -6,5 +6,4 @@ class RelationContainer:
         self.dst = []
 
     def get_cypher(self):
-
         pass

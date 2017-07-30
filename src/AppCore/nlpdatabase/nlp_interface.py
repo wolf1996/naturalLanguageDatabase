@@ -115,5 +115,5 @@ class NLPInterface:
         for i in res:
             i.id = self.__get_key()
             cyph.append((i.get_cypher()+'\n return distinct {}'.format(i.id)))
-        self.current_key="a"
+        self.current_key = "a"
         return cyph

@@ -18,7 +18,7 @@ class NodeContainer:
         return res
 
     def create_named_props(self):
-        #bufkey =  self.key_generator()
+        #  bufkey =  self.key_generator()
         res = "(({})".format(self.id)
         buf = []
         for i in self.data_properties_resolved.items():

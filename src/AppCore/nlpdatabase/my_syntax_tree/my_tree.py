@@ -17,7 +17,7 @@ class MyTree:
         self.terasus = terasus
         self.ignore_manager = ignore_manager
         self.name = tree.data['form']
-        self.children = [MyTree(i,terasus,ignore_manager) for i in tree.children]
+        self.children = [MyTree(i, terasus, ignore_manager) for i in tree.children]
         self.system_name = None
         pass
 

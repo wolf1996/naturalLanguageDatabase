@@ -5,6 +5,7 @@ from AppCore.nlpdatabase.terasus.terasus_item import MyItem
 from AppCore.nlpdatabase.terasus.info.class_info import ClassInfo
 from AppCore.nlpdatabase.terasus.info.property_info import PropertyInfo
 
+
 class MyTerasus:
     def __init__(self, path):
         self.workpath = path

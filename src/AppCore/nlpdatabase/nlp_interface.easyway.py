@@ -80,7 +80,7 @@ class NLPInterface:
         node_interpretation = self.terasus.terasus[node.name]
         for i in node_interpretation:
             if i.type == 'property':
-                return  self.__process_property(node, i, key, n)
+                return self.__process_property(node, i, key, n)
 
     def __create_base(self, key, node):
         bufkey = self.__get_key()
@@ -101,7 +101,7 @@ class NLPInterface:
         else:
             cypher += self.__create_base(key, node)
         for i in node.children:
-            cypher += self.__process_children(i, key,n+1)
+            cypher += self.__process_children(i, key, n+1)
             pass
         if n == 0:
             cypher += ("return {}".format(key))
